@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Celebraciones Religiosas - Región de Los Lagos</title>
+<style>
+  :root {
+    --bg: #eef4ff;
+    --card: #ffffff;
+    --text: #182338;
+    --muted: #5d6b82;
+    --primary: #3157d5;
+    --secondary: #6b4fd3;
+    --accent: #f59e0b;
+    --border: #dce4f2;
+    --shadow: 0 12px 30px rgba(30, 50, 90, .12);
+  }
+
+  * { box-sizing: border-box; scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, var(--bg), #ffffff);
+    color: var(--text);
+    transition: .3s;
+  }
+
+  header {
+    padding: 55px 20px 45px;
+    text-align: center;
+    color: white;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+  }
+
+  header h1 { margin: 0 0 10px; font-size: clamp(30px, 5vw, 48px); }
+  header p { margin: 0; font-size: 18px; opacity: .92; }
+
+  .controls {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 14px;
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  button {
+    border: 0;
+    padding: 10px 15px;
+    border-radius: 999px;
+    cursor: pointer;
+    color: white;
+    background: var(--primary);
+    font-weight: bold;
+    transition: transform .2s, filter .2s;
+  }
+
+  button:hover { transform: translateY(-2px); filter: brightness(1.08); }
+  button.secondary { background: var(--secondary); }
+  button.accent { background: var(--accent); color: #342100; }
+  button.dark { background: #263244; }
+
+  main {
+    width: min(1100px, 92%);
+    margin: 35px auto 60px;
+  }
+
+  .intro {
+    background: var(--card);
+    padding: 24px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    margin-bottom: 28px;
+  }
+
+  .intro h2 { margin-top: 0; color: var(--primary); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+  }
+
+  .card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 40px rgba(30, 50, 90, .18);
+  }
+
+  .card.selected {
+    border: 3px solid var(--accent);
+    transform: translateY(-4px);
+  }
+
+  .card-head {
+    padding: 22px;
+    color: white;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+  }
+
+  .card:nth-child(2) .card-head {
+    background: linear-gradient(135deg, #00897b, #00695c);
+  }
+
+  .card:nth-child(3) .card-head {
+    background: linear-gradient(135deg, #d97706, #b45309);
+  }
+
+  .number {
+    display: inline-flex;
+    width: 38px;
+    height: 38px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,.2);
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+
+  .card-head h2 { margin: 0; font-size: 24px; }
+  .content { padding: 22px; }
+
+  .item {
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .item:last-child { border-bottom: 0; }
+
+  .label {
+    display: block;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 5px;
+  }
+
+  .item p { margin: 0; line-height: 1.55; color: var(--muted); }
+
+  .actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+  }
+
+  .actions button {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .hidden { display: none; }
+
+  footer {
+    text-align: center;
+    padding: 25px;
+    color: var(--muted);
+  }
+
+  body.warm {
+    --bg: #fff4e6;
+    --primary: #c2410c;
+    --secondary: #9a3412;
+    --border: #f3d4b8;
+  }
+
+  body.green {
+    --bg: #eaf8f0;
+    --primary: #16834b;
+    --secondary: #116b40;
+    --border: #ccebd9;
+  }
+
+  body.darkmode {
+    --bg: #101827;
+    --card: #182235;
+    --text: #f2f5fb;
+    --muted: #c2cada;
+    --border: #2d3a50;
+  }
+
+  body.darkmode .controls { background: rgba(24,34,53,.95); }
+</style>
+</head>
+
+<body>
+<header>
+  <h1>Celebraciones Religiosas</h1>
+  <p>Región de Los Lagos</p>
+</header>
+
+<div class="controls">
+  <button onclick="setTheme('default')">🔵 Azul</button>
+  <button class="accent" onclick="setTheme('warm')">🟠 Cálido</button>
+  <button class="secondary" onclick="setTheme('green')">🟢 Verde</button>
+  <button class="dark" onclick="setTheme('dark')">🌙 Oscuro</button>
+  <button onclick="showAll()">Mostrar todas</button>
+</div>
+
+<main>
+  <section class="intro">
+    <h2>Celebraciones de la Región de Los Lagos</h2>
+    <p>
+      En este documento se presentan tres celebraciones religiosas importantes:
+      la Fiesta de Jesús Nazareno de Caguach, la Fiesta de Nuestra Señora de la
+      Candelaria de Carelmapu y la Fiesta de San Sebastián de Purranque.
+    </p>
+  </section>
+
+  <section class="grid">
+
+    <article class="card" id="caguach">
+      <div class="card-head">
+        <div class="number">1</div>
+        <h2>Fiesta de Jesús Nazareno de Caguach</h2>
+      </div>
+      <div class="content">
+        <div class="item"><span class="label">Región</span><p>Región de Los Lagos</p></div>
+        <div class="item"><span class="label">Localidad</span><p>Isla de Caguach, comuna de Quinchao, Chiloé</p></div>
+        <div class="item"><span class="label">Fecha</span><p>30 de agosto (fiesta principal). También existe una celebración en enero.</p></div>
+        <div class="item"><span class="label">Historia</span><p>Es una de las fiestas religiosas más importantes de Chiloé. La tradición se remonta al siglo XVIII. La imagen de Jesús Nazareno llegó a Caguach en 1778 y la fiesta reunió históricamente a las comunidades de Caguach, Apiao, Alao, Tac y Chaulinec.</p></div>
+        <div class="item"><span class="label">Origen</span><p>Su origen está relacionado con la llegada de la imagen del Nazareno llevada por el misionero franciscano Fray Hilario Martínez. La tradición buscó unir a las comunidades de las islas mediante una celebración común.</p></div>
+        <div class="item"><span class="label">Santo o advocación</span><p>Jesús Nazareno de Caguach.</p></div>
+        <div class="item"><span class="label">Principales actividades</span><p>Novena, misas, procesión de banderas, Vía Crucis y la gran procesión de la imagen del Nazareno. Muchos peregrinos llegan en embarcaciones desde distintas partes de Chiloé.</p></div>
+        <div class="item"><span class="label">Importancia para la comunidad</span><p>Es una expresión muy importante de la identidad chilota. Une a familias y comunidades, mantiene tradiciones antiguas y reúne a miles de peregrinos.</p></div>
+        <div class="actions">
+          <button onclick="selectCard(this)">⭐ Resaltar</button>
+          <button class="secondary" onclick="scrollToCard('carelmapu')">➡️ Siguiente</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" id="carelmapu">
+      <div class="card-head">
+        <div class="number">2</div>
+        <h2>Fiesta de Nuestra Señora de la Candelaria de Carelmapu</h2>
+      </div>
+      <div class="content">
+        <div class="item"><span class="label">Región</span><p>Región de Los Lagos</p></div>
+        <div class="item"><span class="label">Localidad</span><p>Carelmapu, comuna de Maullín, provincia de Llanquihue</p></div>
+        <div class="item"><span class="label">Fecha</span><p>2 de febrero</p></div>
+        <div class="item"><span class="label">Historia</span><p>Es una de las celebraciones religiosas más grandes de la Región de Los Lagos. La tradición de Carelmapu se relaciona con una imagen de la Virgen que habría llegado a la zona a comienzos del siglo XVII, junto a españoles que huyeron de la destrucción de Osorno en 1602.</p></div>
+        <div class="item"><span class="label">Origen</span><p>Según la tradición local, la imagen de la Virgen quedó en Carelmapu porque los intentos de trasladarla hacia Chiloé fueron impedidos por el mal tiempo.</p></div>
+        <div class="item"><span class="label">Santo o advocación</span><p>Nuestra Señora de la Candelaria.</p></div>
+        <div class="item"><span class="label">Principales actividades</span><p>Misas, peregrinación, procesión por las calles y una procesión marítima en embarcaciones adornadas. Participan familias de Carelmapu y peregrinos que llegan desde otras localidades.</p></div>
+        <div class="item"><span class="label">Importancia para la comunidad</span><p>Es muy importante para la comunidad pesquera y para la identidad religiosa de la zona. La celebración reúne a numerosos devotos y mantiene una tradición transmitida por generaciones.</p></div>
+        <div class="actions">
+          <button onclick="selectCard(this)">⭐ Resaltar</button>
+          <button class="secondary" onclick="scrollToCard('purranque')">➡️ Siguiente</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" id="purranque">
+      <div class="card-head">
+        <div class="number">3</div>
+        <h2>Fiesta de San Sebastián de Purranque</h2>
+      </div>
+      <div class="content">
+        <div class="item"><span class="label">Región</span><p>Región de Los Lagos</p></div>
+        <div class="item"><span class="label">Localidad</span><p>Purranque, provincia de Osorno</p></div>
+        <div class="item"><span class="label">Fecha</span><p>20 de enero</p></div>
+        <div class="item"><span class="label">Historia</span><p>La Fiesta de San Sebastián es una tradición religiosa profundamente arraigada en Purranque y reúne a numerosos peregrinos. La devoción local se consolidó durante el siglo XX y forma parte del patrimonio cultural de la comuna.</p></div>
+        <div class="item"><span class="label">Origen</span><p>La primera capilla católica de Purranque se fundó entre 1924 y 1925. La imagen original de San Sebastián fue donada por un devoto como muestra de agradecimiento.</p></div>
+        <div class="item"><span class="label">Santo o advocación</span><p>San Sebastián, santo mártir.</p></div>
+        <div class="item"><span class="label">Principales actividades</span><p>Misas, oración, peregrinación y una procesión por las calles de Purranque. También se instalan espacios de encuentro alrededor de la celebración.</p></div>
+        <div class="item"><span class="label">Importancia para la comunidad</span><p>Ayuda a mantener la fe y las tradiciones de Purranque. Es un momento de encuentro para las familias y para personas que llegan desde distintos lugares de la región.</p></div>
+        <div class="actions">
+          <button onclick="selectCard(this)">⭐ Resaltar</button>
+          <button class="secondary" onclick="scrollToCard('caguach')">↩️ Volver al inicio</button>
+        </div>
+      </div>
+    </article>
+
+  </section>
+</main>
+
+<footer>
+  Página interactiva creada a partir del documento “Celebraciones Religiosas - Región de Los Lagos”.
+</footer>
+
+<script>
+function setTheme(theme) {
+  document.body.classList.remove('warm', 'green', 'darkmode');
+  if (theme === 'warm') document.body.classList.add('warm');
+  if (theme === 'green') document.body.classList.add('green');
+  if (theme === 'dark') document.body.classList.add('darkmode');
+}
+
+function selectCard(button) {
+  const card = button.closest('.card');
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+}
+
+function scrollToCard(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function showAll() {
+  document.querySelectorAll('.card').forEach(c => {
+    c.classList.remove('hidden', 'selected');
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
